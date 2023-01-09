@@ -1,0 +1,3 @@
+api rest de red social con sus funcionalidades básicas.
+esta construido en nodeJs con express usando sequelize.
+este proyecto se puede mejorar mucho con typescript
