@@ -1,0 +1,112 @@
+[
+    {
+        "authentication": {
+            "/register": {
+                "METHOD": "POST",
+                "request.body": ["username", "password"],
+                "response": ["token"]
+            },
+            "/login":{
+                "METHOD": "POST",
+                "request.body": ["username","password"],
+                "response": ["token"]
+            }
+        }
+    },
+    {
+        "user": {
+            "middleware request":{"headers": "x-access-token: token"},
+            "/profile": {
+                "METHOD": "GET",
+                "request": [],
+                "response": ["bienvenido", "user"]
+            },
+            "/findUser/:username": {
+                "METHOD": "GET",
+                "request.params": ["username"],
+                "response": ["user"]
+            },
+            "/indexPage":{
+                "METHOD": "GET",
+                "response": ["publications of my friends"]
+            },
+            "/popularPosts": {
+                "METHOD": "GET",
+                "response" : ["publicactions most popular"]
+            },
+            "/myActivity":{
+                "METHOD": "GET",
+                "response" : {"count my activity": [
+                    "countLikes", "countComents", "allComents", "allLikes"
+                ]}
+            }
+        }
+    },
+    {
+        "publications":{
+            "middleware request":{"headers": "x-access-token: token"},
+            "/post GET": {
+                "response": ["your publications"]
+            },
+            "/post/:id GET": {
+                "response": ["one publication with likeCount and comentCount by id"]
+            },
+            "/post POST": {
+                "request.body": ["text", "img_Url"],
+                "info": ["create one post"]
+            },
+            "/post/:id PUT": {
+                "request.body": ["text", "img_Url"],
+                "response": ["publication update"]
+            },
+            "/post/:id DELETE": {
+                "response": ["post deleted"]
+            }
+        },
+        "coments": {
+            "middleware request":{"headers": "x-access-token: token"},
+            "/createComentary/:postId POST": {
+                "request.body": ["textComentary"],
+                "response": ["publication created"]
+            },
+            "/comentary/:id GET": {
+                "response": ["get one coment in one publication"]
+            },
+            "/comentary GET": {
+                "response": ["get your coments"]
+            },
+            "/comentary/:id DELETE": {
+                "response": ["coment deleted"]
+            },
+            "/comentary/:id PUT": {
+                "request.body": ["textComentary"],
+                "response": []
+            }
+        },
+        "likes":{
+            "middleware request":{"headers": "x-access-token: token"},
+            "/like/:idPost method-POST": {
+                "response": ["newLike"]
+            },
+            "/like/:id method-DELETE": {
+                "response": ["like deleted"]
+            }
+        },
+        "followers": {
+            "middleware request":{"headers": "x-access-token: token"},
+            "/followers GET": {
+                "response": ["get your followers"]
+            },
+            "/idols GET": {
+                "response": ["get your idols"]
+            },
+            "/followers/:id POST":{
+                "info": ["follow user"]
+            },
+            "/followers/:id DELETE":{
+                "info": ["unFollow user"]
+            }
+        }
+    }
+
+]
